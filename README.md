@@ -195,10 +195,6 @@ The model was trained on the **LIDC-IDRI dataset** with:
 - **No Data Retention**: Images not saved after analysis
 - **CORS Enabled**: Secure cross-origin requests
 
-## 📝 Resume Description (ATS-Friendly)
-
-> Developed an AI-powered lung cancer detection system using **Transfer Learning** with **MobileNetV2**, achieving **92% accuracy** on CT scan classification. Processed **10,000+ medical images** from the **LIDC-IDRI dataset** using advanced preprocessing techniques including **CLAHE enhancement** and **data augmentation**. Implemented using **TensorFlow/Keras** with comprehensive evaluation metrics: **F1-score (0.91)**, **ROC-AUC (0.93)**. Deployed using **Flask** for real-time inference with a modern **responsive web interface**. Applied **computer vision techniques** including **Canny edge detection**, **Hough Circle Transform**, and **texture analysis** for feature extraction.
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
