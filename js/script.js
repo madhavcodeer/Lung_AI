@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('file', fileInput.files[0]);
 
         // Call Flask API
-        fetch('/predict', {
+        fetch(`${API_URL}/predict`, {
             method: 'POST',
             body: formData
         })
