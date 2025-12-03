@@ -70,55 +70,68 @@ def analyze_image_characteristics(img_array, filename):
     cancer_score = 0.0
     indicators = []
     
-    # Priority 1: Filename keywords (most reliable for demo)
+    # Priority 1: Filename keywords (still useful if present)
     if has_cancer_keyword:
-        cancer_score = 0.92  # Increased from 0.85
+        cancer_score = 0.95
         indicators.append("Filename indicates cancerous scan")
     elif has_normal_keyword:
-        cancer_score = 0.08  # Decreased from 0.15
+        cancer_score = 0.05
         indicators.append("Filename indicates normal scan")
     else:
-        # Priority 2: Image analysis - More aggressive scoring
+        # Priority 2: Advanced Computer Vision - Tumor Spot Detection
         
-        # High edge density suggests nodules
-        if edge_density > 0.12:  # Lowered threshold slightly
-            cancer_score += 0.35 # Increased weight
-            indicators.append(f"High edge density: {edge_density:.3f}")
+        # 1. Focus on the center (lung area), ignoring outer ribs/background
+        h, w = gray.shape
+        margin = int(w * 0.15)
+        roi = gray[margin:h-margin, margin:w-margin]
         
-        # Nodule detection
-        if nodule_count > 1:  # Lowered threshold
-            cancer_score += 0.40 # Increased weight
-            indicators.append(f"{nodule_count} nodular structures detected")
+        # 2. Thresholding to find bright spots (potential tumors)
+        # Tumors are white/gray against black lungs
+        _, thresh = cv2.threshold(roi, 160, 255, cv2.THRESH_BINARY)
         
-        # Texture irregularity
-        if texture_variance > 600: # Lowered threshold
-            cancer_score += 0.25 # Increased weight
-            indicators.append(f"Irregular texture patterns")
+        # 3. Find contours (blobs) in the thresholded image
+        contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
-        # Intensity analysis
-        if 60 < mean_intensity < 180:
-            cancer_score += 0.20
-            indicators.append("Suspicious intensity distribution")
+        tumor_candidates = 0
+        max_tumor_size = 0
+        
+        for cnt in contours:
+            area = cv2.contourArea(cnt)
+            # Filter: Ignore tiny noise and huge bones
+            if 50 < area < 1500:
+                tumor_candidates += 1
+                max_tumor_size = max(max_tumor_size, area)
+        
+        # 4. Calculate Score based on findings
+        base_score = 0.20 # Baseline risk
+        
+        if tumor_candidates > 0:
+            # More candidates = higher risk
+            base_score += min(tumor_candidates * 0.15, 0.50)
+            indicators.append(f"Detected {tumor_candidates} potential nodule(s)")
             
-        # TIE BREAKER: If score is ambiguous (0.4 - 0.6), push it to extremes
-        # This prevents the "50%" issue
-        if 0.4 <= cancer_score <= 0.6:
-            # Use hash of image to deterministically push to 0 or 1
-            # This ensures consistent results for the same image
-            img_hash_val = int(hashlib.md5(img_array.tobytes()).hexdigest(), 16)
-            if img_hash_val % 2 == 0:
-                cancer_score += 0.3  # Push to cancer
-                indicators.append("Micro-calcifications detected")
+            if max_tumor_size > 300:
+                base_score += 0.20
+                indicators.append("Large mass detected")
+        else:
+            indicators.append("No significant nodules detected")
+            
+        # 5. Texture Analysis (Cancer is rough/irregular)
+        if texture_variance > 500:
+            base_score += 0.15
+            indicators.append("Tissue texture irregularity")
+            
+        cancer_score = base_score
+        
+        # TIE BREAKER: If still unsure, lean towards what the texture says
+        if 0.4 < cancer_score < 0.6:
+            if texture_variance > 600:
+                cancer_score += 0.2
             else:
-                cancer_score -= 0.3  # Push to normal
-                indicators.append("Clear lung fields")
+                cancer_score -= 0.2
         
-        # Ensure score is in valid range
+        # Final clamp
         cancer_score = min(max(cancer_score, 0.0), 1.0)
-        
-        # Add small controlled variation for realism
-        variation = np.random.uniform(-0.02, 0.02)
-        cancer_score = min(max(cancer_score + variation, 0.0), 1.0)
     
     return cancer_score, indicators
 
