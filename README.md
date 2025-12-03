@@ -21,7 +21,11 @@ An AI-powered web application for detecting lung cancer from CT scan images usin
 
 ## 🚀 Live Demo
 
-Visit the live application: [Lung Cancer Detection](https://madhavcodeer.github.io/Lung_AI/)
+**🌐 Try it now:** [https://whimsical-kitten-616883.netlify.app/](https://whimsical-kitten-616883.netlify.app/)
+
+**Backend API:** [https://lung-ai.onrender.com](https://lung-ai.onrender.com)
+
+Upload a CT scan image and get instant AI-powered predictions!
 
 ## 📊 Model Performance
 
@@ -194,6 +198,29 @@ The model was trained on the **LIDC-IDRI dataset** with:
 - **Local Storage Only**: Images processed in memory
 - **No Data Retention**: Images not saved after analysis
 - **CORS Enabled**: Secure cross-origin requests
+
+## 🌐 Deployment
+
+This project is deployed using a modern serverless architecture:
+
+### Frontend (Netlify)
+- **URL**: https://whimsical-kitten-616883.netlify.app/
+- **Platform**: Netlify
+- **Auto-deploy**: Enabled from GitHub main branch
+- **Features**: CDN, HTTPS, Custom domain support
+
+### Backend (Render.com)
+- **URL**: https://lung-ai.onrender.com
+- **Platform**: Render.com
+- **Runtime**: Python 3.9
+- **Features**: Auto-scaling, HTTPS, Health monitoring
+
+### Deployment Guide
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+## 📝 Resume Description (ATS-Friendly)
+
+> Developed a lung cancer detection model using ResNet and InceptionV3 achieving 92% accuracy. Processed 10,000+ CT images from the LIDC-IDRI dataset using augmentation & normalization. Implemented using TensorFlow & Keras with evaluation via F1-score (0.91) and ROC-AUC (0.93). Deployed using Flask for real-time inference.
 
 ## 🤝 Contributing
 
