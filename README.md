@@ -204,6 +204,11 @@ The model was trained on the **LIDC-IDRI dataset** with:
 
 This project is deployed using a modern serverless architecture:
 
+### Frontend (Vercel) - Recommended
+- **Platform**: Vercel
+- **Setup**: Connect GitHub repo, keep default settings
+- **Features**: Global CDN, Instant deployment
+
 ### Frontend (Netlify)
 - **URL**: https://whimsical-kitten-616883.netlify.app/
 - **Platform**: Netlify
