@@ -64,14 +64,15 @@ Upload a CT scan image and get instant AI-powered predictions!
 
 ```
 Lung_AI/
-├── app.py                  # Flask backend server
+├── backend/               # Python backend files
+│   ├── app.py            # Flask backend server
+│   ├── requirements.txt  # Python dependencies
+│   └── lung_cancer_ct_model.h5
 ├── index.html             # Main web interface
 ├── css/
 │   └── style.css         # Styling and animations
 ├── js/
 │   └── script.js         # Frontend logic
-├── lung_cancer_ct_model.h5  # Trained model (optional)
-├── requirements.txt       # Python dependencies
 ├── README.md             # This file
 └── .gitignore           # Git ignore rules
 ```

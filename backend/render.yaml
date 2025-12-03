@@ -2,6 +2,7 @@ services:
   - type: web
     name: lung-cancer-detection-api
     env: python
+    rootDirectory: backend
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
