@@ -219,10 +219,6 @@ This project is deployed using a modern serverless architecture:
 ### Deployment Guide
 For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
 
-## 📝 Resume Description (ATS-Friendly)
-
-> Developed a lung cancer detection model using ResNet and InceptionV3 achieving 92% accuracy. Processed 10,000+ CT images from the LIDC-IDRI dataset using augmentation & normalization. Implemented using TensorFlow & Keras with evaluation via F1-score (0.91) and ROC-AUC (0.93). Deployed using Flask for real-time inference.
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
