@@ -1,0 +1,12 @@
+# Ignore Python backend files - these are for Render.com only
+app.py
+requirements.txt
+render.yaml
+*.h5
+*.py
+diagnose.py
+test_*.py
+
+# Ignore deployment docs
+DEPLOYMENT.md
+DEPLOYMENT_SOLUTION.md
