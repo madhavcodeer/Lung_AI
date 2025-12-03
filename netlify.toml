@@ -1,0 +1,20 @@
+[build]
+  # No build command needed - this is a static site
+  command = ""
+  publish = "."
+
+# Redirect API calls to backend (optional, for better error messages)
+[[redirects]]
+  from = "/api/*"
+  to = "https://lung-ai.onrender.com/:splat"
+  status = 200
+  force = true
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
